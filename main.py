@@ -39,7 +39,7 @@ def start(update, context):
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('/set-hello-message')
+    update.message.reply_text('/set-greeting')
 
 def setHelloMessage(update, context):
     update.message.reply_text('Woof!')

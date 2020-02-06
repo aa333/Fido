@@ -3,8 +3,8 @@ import traceback
 
 from telegram import ParseMode
 from telegram.utils.helpers import mention_html
-from consts import authorId
 
+from config import authorId
 
 def onError(update, context):
     if update.effective_message:
