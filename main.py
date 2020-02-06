@@ -1,17 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# This program is dedicated to the public domain under the CC0 license.
-
-"""
-Simple Bot to reply to Telegram messages.
-First, a few handler functions are defined. Then, those functions are passed to
-the Dispatcher and registered at their respective places.
-Then, the bot is started and runs until we press Ctrl-C on the command line.
-Usage:
-Basic Echobot example, repeats messages.
-Press Ctrl-C on the command line or send a signal to the process to stop the
-bot.
-"""
 
 import logging
 
@@ -19,7 +6,11 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 
 from errorHandler import onError
 
-
+# TODO
+# detect conversation
+# custom greeting module
+# mqueue for overflow
+# 
 
 # Enable logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -39,9 +30,9 @@ def start(update, context):
 
 def help(update, context):
     """Send a message when the command /help is issued."""
-    update.message.reply_text('/set-greeting')
+    update.message.reply_text('/set-greeting') #todo move to text resources
 
-def setHelloMessage(update, context):
+def setHelloMessage(update, context): #todo separate module
     update.message.reply_text('Woof!')
 
 def reply(update, context):
@@ -61,7 +52,7 @@ def main():
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("test-error", help))
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, reply))
