@@ -6,6 +6,8 @@ from telegram.utils.helpers import mention_html
 
 from config import authorId
 
+# error handler sends the message to owner on error
+
 def onError(update, context):
     if update.effective_message:
         text = "Произошла ошибка. Передам бате."
