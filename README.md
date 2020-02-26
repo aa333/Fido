@@ -4,7 +4,7 @@ Personal telegram bot
 ## Required files
 
 **config.py**
-authorId = 'your numeric tg id'
+ownerId = 'your numeric tg id'
 admins = ['id1', 'id2', ...]
 
 **token.txt**

@@ -9,18 +9,20 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Pickl
 from telegram.utils.request import Request
 from MQBot import MQBot
 
-from accessControls import botAdminsRestricted, botOwnerRestricted
+from access_controls import botAdminsRestricted, botOwnerRestricted
+from config import ownerId
 
 from mod_errorHandler import onError
 from mod_tests import init_tests
 from mod_help import init_help
 
-
 # TODO MVC
-# start/stop sending
-# custom greeting module 
-#   - work in groups (replies, mentions)
-#   - command chains
+# 
+# custom greeting module - ConversationHandler, 
+# if in private, ask which group (from all joined), save reply to chat_data.
+# restrict access to groups by asking owner.
+# group admins handling. everyone is admin case.
+# command chains
 
 # TODO NTH
 # restarting
@@ -52,6 +54,7 @@ def main():
     request = Request(con_pool_size=8)
     throttledBot = MQBot(token, request=request)
     updater = Updater(bot=throttledBot, use_context=True, persistence=persistence)
+    updater.bot.send_message(ownerId, "Woof! Woof!", timeout=10)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
@@ -67,11 +70,12 @@ def main():
 
     dp.add_handler(CommandHandler('restart', restart))
 
-    # on different commands - answer in Telegram
-    dp.add_handler(CommandHandler("start", start))
     
+    # Setup command handlers
+    dp.add_handler(CommandHandler("start", start))
     init_tests(dp)
     init_help(dp)
+
 
     # on noncommand i.e message - echo the message on Telegram
     dp.add_handler(MessageHandler(Filters.text, reply))

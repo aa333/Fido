@@ -4,7 +4,7 @@ import traceback
 from telegram import ParseMode
 from telegram.utils.helpers import mention_html
 
-from config import authorId
+from config import ownerId
 
 # error handler sends the message to owner on error
 
@@ -34,6 +34,6 @@ def onError(update, context):
     text = f"Hey.\n The error <code>{context.error}</code> happened{payload}. The full traceback:\n\n<code>{trace}" \
            f"</code>"
     # and send it to the dev(s)
-    context.bot.send_message(authorId, text, parse_mode=ParseMode.HTML)
+    context.bot.send_message(ownerId, text, parse_mode=ParseMode.HTML)
     # we raise the error again, so the logger module catches it. If you don't use the logger module, use it.
     # raise

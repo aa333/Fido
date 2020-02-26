@@ -1,6 +1,6 @@
 
 
-from accessControls import botAdminsRestricted, botOwnerRestricted
+from access_controls import botAdminsRestricted, botOwnerRestricted
 from telegram.ext import CommandHandler
 
 @botOwnerRestricted

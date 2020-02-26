@@ -1,2 +1,2 @@
-authorId = '97531139'
+ownerId = '97531139'
 admins = [97531139]

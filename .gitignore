@@ -141,3 +141,4 @@ $RECYCLE.BIN/
 /token.txt
 /.venv
 /consts.py
+bot_state
