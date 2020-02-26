@@ -12,22 +12,22 @@ from MQBot import MQBot
 from access_controls import botAdminsRestricted, botOwnerRestricted
 from config import ownerId
 
-from mod_errorHandler import onError
-from mod_tests import init_tests
-from mod_help import init_help
+from modules.errorHandler import onError
+from modules.tests import init_tests
+from modules.help import init_help
 
 # TODO MVC
 # 
 # custom greeting module - ConversationHandler, 
 # if in private, ask which group (from all joined), save reply to chat_data.
 # restrict access to groups by asking owner.
-# group admins handling. everyone is admin case.
-# command chains
+# group admins handling. everyone_is_admin case.
 
 # TODO NTH
-# restarting
+#
+# module bus - register, auto-gather descriptions and help, permission management
 
-# Enable logging
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
