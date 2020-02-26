@@ -1,8 +1,11 @@
 #!/usr/bin/env python
 
 import logging
+import os
+import sys
+from threading import Thread
 
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, PicklePersistence
 from telegram.utils.request import Request
 from MQBot import MQBot
 
@@ -14,8 +17,7 @@ from mod_help import init_help
 
 
 # TODO MVC
-# basic help
-# 
+# start/stop sending
 # custom greeting module 
 #   - work in groups (replies, mentions)
 #   - command chains
@@ -45,13 +47,25 @@ def reply(update, context):
 def main():
     """Start the bot."""
 
+    persistence = PicklePersistence(filename='bot_state')
     # set connection pool size for bot
     request = Request(con_pool_size=8)
     throttledBot = MQBot(token, request=request)
-    updater = Updater(bot=throttledBot, use_context=True)
+    updater = Updater(bot=throttledBot, use_context=True, persistence=persistence)
 
     # Get the dispatcher to register handlers
     dp = updater.dispatcher
+
+    def stop_and_restart():
+       updater.stop()
+       os.execl(sys.executable, sys.executable, *sys.argv)
+
+    @botAdminsRestricted
+    def restart(update, context):
+        update.message.reply_text('Bot is restarting...')
+        Thread(target=stop_and_restart).start()
+
+    dp.add_handler(CommandHandler('restart', restart))
 
     # on different commands - answer in Telegram
     dp.add_handler(CommandHandler("start", start))
@@ -72,7 +86,6 @@ def main():
     # SIGTERM or SIGABRT. This should be used most of the time, since
     # start_polling() is non-blocking and will stop the bot gracefully.
     updater.idle()
-
 
 if __name__ == '__main__':
     main()
