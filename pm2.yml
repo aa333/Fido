@@ -1,4 +1,4 @@
 apps:
     script: '/bin/bash' 
     name: 'fido'
-    args:  ['-c', 'pipenv --python /usr/bin/python3 run python3 main.py']
+    args:  ['-c', 'pipenv run python3 main.py']

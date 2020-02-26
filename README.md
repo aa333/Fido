@@ -12,15 +12,9 @@ just token without quotes
 
 ## Run
 ```
-pipenv install
-pipenv run python main.py
+pipenv --three install
+pipenv run python3 main.py
 
-```
-
-or more direct
-
-```
-pipenv --python /usr/bin/python3 run python3 main.py
 ```
 or with pm2 
 
